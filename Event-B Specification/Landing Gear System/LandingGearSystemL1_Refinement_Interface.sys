@@ -1,0 +1,64 @@
+SYSTEM
+	LandingGearSystemL1_Refinement_Interface
+SEES
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	lgState
+INVARIANT
+	lgState : LandingGearSystem --> LandingGearSystemStates
+INITIALISATION
+	lgState :: {lg} -->LandingGearSystemStates
+
+EVENTS
+	commandsMechanicalSSForRetraction =
+	SELECT
+		lgState(lg)=Extended
+	THEN
+ skip 	END
+ ;
+	ExtendsLG =
+	SELECT
+		lgState(lg)=Retracted
+	THEN
+		lgState(lg):=Extended
+	END
+ ;
+	commandsMechanicalSSForExtension =
+	SELECT
+		lgState(lg)=Retracted
+	THEN
+ skip 	END
+ ;
+	RetractsLG =
+	SELECT
+		lgState(lg)=Extended
+	THEN
+		lgState(lg):=Retracted
+	END
+ ;
+	commandsDigitalSSForRetraction =
+	SELECT
+		lgState(lg)=Extended
+	THEN
+ skip 	END
+ ;
+	commandsPiloteSSForExtension =
+	SELECT
+		lgState(lg)=Retracted
+	THEN
+ skip 	END
+ ;
+	commandsDigitalSSForExtension =
+	SELECT
+		lgState(lg)=Retracted
+	THEN
+ skip 	END
+ ;
+	commandsPiloteSSForRetraction =
+	SELECT
+		lgState(lg)=Extended
+	THEN
+ skip 	END
+END
+

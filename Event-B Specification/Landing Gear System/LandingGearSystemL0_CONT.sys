@@ -1,0 +1,17 @@
+SYSTEM
+	LandingGearSystemL0_CONT
+SETS
+	LandingGearSystem;
+	LandingGearSystemStates
+CONSTANTS
+	lg,
+	Extended,
+	Retracted
+PROPERTIES
+	lg : LandingGearSystem &
+	LandingGearSystem ={lg} &
+	Retracted : LandingGearSystemStates &
+	Extended : LandingGearSystemStates &
+	Retracted /= Extended &
+	LandingGearSystemStates ={Extended, Retracted}
+END

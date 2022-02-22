@@ -1,0 +1,92 @@
+REFINEMENT
+	MechanicalSubSystemL1
+REFINES
+	MechanicalSubSystem_Interface
+
+SEES
+	MechanicalSubSystem_CONT,
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	flsState,
+	llsState,
+	rlsState,
+	mssState
+INVARIANT
+	flsState : FrontLandingSet --> FrontLandingSetSTATES &
+	llsState : LeftLandingSet --> LeftLandingSetSTATES &
+	rlsState : RightLandingSet --> RightLandingSetSTATES
+INITIALISATION
+	flsState :: {fls} -->FrontLandingSetSTATES ||
+	llsState :: {lls} -->LeftLandingSetSTATES ||
+	rlsState :: {rls} -->RightLandingSetSTATES ||
+	mssState :: {mss} -->MechanicalSubSystemStates
+
+EVENTS
+	ExtendsRightLandingSet =
+	SELECT
+		rlsState(rls)=retractedRLS &
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+		rlsState(rls):=extendedRLS
+	END
+ ;
+	RetractsFrontLandingSet =
+	SELECT
+		flsState(fls)=extendedFLS &
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+		flsState(fls):=retractedFLS
+	END
+ ;
+	ExtendsLeftLandingSet =
+	SELECT
+		llsState(lls)=retractedLLS &
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+		llsState(lls):=extendedLLS
+	END
+ ;
+	ExtendsLGSS ref ExtendsLG=
+	SELECT
+		rlsState(rls)=extendedRLS &
+		flsState(fls)=extendedFLS &
+		llsState(lls)=extendedLLS &
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	RetractsLGSS ref RetractsLG=
+	SELECT
+		rlsState(rls)=retractedRLS &
+		flsState(fls)=retractedFLS &
+		llsState(lls)=retractedLLS &
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	ExtendsFrontLandingSet =
+	SELECT
+		flsState(fls)=retractedFLS &
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+		flsState(fls):=extendedFLS
+	END
+ ;
+	RetractsRightLandingSet =
+	SELECT
+		rlsState(rls)=extendedRLS &
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+		rlsState(rls):=retractedRLS
+	END
+ ;
+	RetractsLeftLandingSet =
+	SELECT
+		llsState(lls)=extendedLLS &
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+		llsState(lls):=retractedLLS
+	END
+END
+

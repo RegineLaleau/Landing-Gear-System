@@ -1,0 +1,38 @@
+REFINEMENT
+	PiloteSubSystemL1
+REFINES
+	PiloteSubSystem_Interface
+
+SEES
+	PiloteSubSystem_CONT,
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	hdState,
+	pssState
+INVARIANT
+	hdState : Handle --> HandleSTATES
+INITIALISATION
+	hdState :: {hd} -->HandleSTATES ||
+	pssState :: {pss} -->PiloteSubSystemStates
+
+EVENTS
+	SwitchHandleUp ref commandsPiloteSSForRetraction=
+	SELECT
+		hdState(hd)=down &
+		pssState(pss)=orderedForExtensionPiloteSS
+	THEN
+		hdState(hd):=up ||
+		pssState(pss):=orderedForRetractionPiloteSS
+	END
+ ;
+	SwitchHandleDown ref commandsPiloteSSForExtension=
+	SELECT
+		hdState(hd)=up &
+		pssState(pss)=orderedForRetractionPiloteSS
+	THEN
+		hdState(hd):=down ||
+		pssState(pss):=orderedForExtensionPiloteSS
+	END
+END
+

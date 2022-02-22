@@ -1,0 +1,67 @@
+SYSTEM
+	FrontLandingSet_CONT
+SETS
+	HighUplockBox;
+	LatchingBoxes;
+	Gear;
+	Door;
+	DownUplockBox;
+	GearSTATES;
+	LatchingBoxesSTATES;
+	HighUplockBoxSTATES;
+	DownUplockBoxSTATES;
+	DoorSTATES
+CONSTANTS
+	hub,
+	door,
+	lb,
+	dub,
+	gear,
+	openedHBox,
+	openedDBox,
+	closedHBox,
+	dclose,
+	gextended,
+	lbopened,
+	gretracted,
+	lbclosed,
+	dopen,
+	closedDBox,
+	hasHub,
+	hasDub,
+	associatedTo
+PROPERTIES
+	dub : DownUplockBox &
+	lb : LatchingBoxes &
+	hub : HighUplockBox &
+	door : Door &
+	gear : Gear &
+	HighUplockBox ={hub} &
+	DownUplockBox ={dub} &
+	Gear ={gear} &
+	Door ={door} &
+	LatchingBoxes ={lb} &
+	closedHBox : HighUplockBoxSTATES &
+	dopen : DoorSTATES &
+	openedDBox : DownUplockBoxSTATES &
+	openedHBox : HighUplockBoxSTATES &
+	lbopened : LatchingBoxesSTATES &
+	closedDBox : DownUplockBoxSTATES &
+	gretracted : GearSTATES &
+	lbclosed : LatchingBoxesSTATES &
+	gextended : GearSTATES &
+	dclose : DoorSTATES &
+	gretracted /= gextended &
+	dclose /= dopen &
+	lbopened /= lbclosed &
+	openedHBox /= closedHBox &
+	openedDBox /= closedDBox &
+	GearSTATES ={gextended, gretracted} &
+	DownUplockBoxSTATES ={closedDBox, openedDBox} &
+	LatchingBoxesSTATES ={lbclosed, lbopened} &
+	HighUplockBoxSTATES ={closedHBox, openedHBox} &
+	DoorSTATES ={dopen, dclose} &
+	hasHub : {gear} >-> {hub} &
+	hasDub : {gear} >->{dub} &
+	associatedTo : {lb} >-> {door} 
+END

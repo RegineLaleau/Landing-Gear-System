@@ -1,0 +1,63 @@
+SYSTEM
+	MechanicalSubSystem_Refinement_Interface
+SEES
+	MechanicalSubSystem_CONT,
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	mssState
+INVARIANT
+	mssState : MechanicalSubSystem --> MechanicalSubSystemStates
+INITIALISATION
+	mssState :: {mss} -->MechanicalSubSystemStates
+
+EVENTS
+	ExtendsRightLandingSet =
+	SELECT
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	RetractsFrontLandingSet =
+	SELECT
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	ExtendsLeftLandingSet =
+	SELECT
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	ExtendsLG =
+	SELECT
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	RetractsLG =
+	SELECT
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	ExtendsFrontLandingSet =
+	SELECT
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	RetractsRightLandingSet =
+	SELECT
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	RetractsLeftLandingSet =
+	SELECT
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+ skip 	END
+END
+

@@ -1,0 +1,93 @@
+REFINEMENT
+	LandingGearSystemL1
+REFINES
+	LandingGearSystemL0
+
+SEES
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	dssState,
+	mssState,
+	pssState,
+	lgState
+INVARIANT
+	dssState : DigitalSubSystem --> DigitalSubSystemStates &
+	mssState : MechanicalSubSystem --> MechanicalSubSystemStates &
+	pssState : PiloteSubSystem --> PiloteSubSystemStates
+INITIALISATION
+	dssState :: {dss} -->DigitalSubSystemStates ||
+	mssState :: {mss} -->MechanicalSubSystemStates ||
+	pssState :: {pss} -->PiloteSubSystemStates ||
+	lgState :: {lg} -->LandingGearSystemStates
+
+EVENTS
+	commandsMechanicalSSForRetraction =
+	SELECT
+		lgState(lg)=Extended &
+		dssState(dss)=orderedForRetractionDigitalSS &
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+		mssState(mss):=orderedForRetractionMechanicalSS
+	END
+ ;
+	ExtendsLG ref ExtendsLGS=
+	SELECT
+		lgState(lg)=Retracted &
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+		lgState(lg):=Extended
+	END
+ ;
+	commandsMechanicalSSForExtension =
+	SELECT
+		lgState(lg)=Retracted &
+		dssState(dss)=orderedForExtensionDigitalSS &
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+		mssState(mss):=orderedForExtensionMechanicalSS
+	END
+ ;
+	RetractsLG ref RetractsLGS=
+	SELECT
+		lgState(lg)=Extended &
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+		lgState(lg):=Retracted
+	END
+ ;
+	commandsDigitalSSForRetraction =
+	SELECT
+		lgState(lg)=Extended &
+		pssState(pss)=orderedForRetractionPiloteSS &
+		dssState(dss)=orderedForExtensionDigitalSS
+	THEN
+		dssState(dss):=orderedForRetractionDigitalSS
+	END
+ ;
+	commandsPiloteSSForExtension =
+	SELECT
+		lgState(lg)=Retracted &
+		pssState(pss)=orderedForRetractionPiloteSS
+	THEN
+		pssState(pss):=orderedForExtensionPiloteSS
+	END
+ ;
+	commandsDigitalSSForExtension =
+	SELECT
+		lgState(lg)=Retracted &
+		pssState(pss)=orderedForExtensionPiloteSS &
+		dssState(dss)=orderedForRetractionDigitalSS
+	THEN
+		dssState(dss):=orderedForExtensionDigitalSS
+	END
+ ;
+	commandsPiloteSSForRetraction =
+	SELECT
+		lgState(lg)=Extended &
+		pssState(pss)=orderedForExtensionPiloteSS
+	THEN
+		pssState(pss):=orderedForRetractionPiloteSS
+	END
+END
+

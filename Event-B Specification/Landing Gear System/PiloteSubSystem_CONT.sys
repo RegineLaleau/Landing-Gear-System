@@ -1,0 +1,17 @@
+SYSTEM
+	PiloteSubSystem_CONT
+SETS
+	Handle;
+	HandleSTATES
+CONSTANTS
+	hd,
+	down,
+	up
+PROPERTIES
+	hd : Handle &
+	Handle ={hd} &
+	down : HandleSTATES &
+	up : HandleSTATES &
+	up /= down &
+	HandleSTATES ={down, up}
+END

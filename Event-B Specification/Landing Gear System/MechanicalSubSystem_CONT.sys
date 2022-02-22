@@ -1,0 +1,39 @@
+SYSTEM
+	MechanicalSubSystem_CONT
+SETS
+	LeftLandingSet;
+	FrontLandingSet;
+	RightLandingSet;
+	LeftLandingSetSTATES;
+	FrontLandingSetSTATES;
+	RightLandingSetSTATES
+CONSTANTS
+	fls,
+	lls,
+	rls,
+	extendedRLS,
+	retractedRLS,
+	extendedFLS,
+	retractedFLS,
+	retractedLLS,
+	extendedLLS
+PROPERTIES
+	rls : RightLandingSet &
+	fls : FrontLandingSet &
+	lls : LeftLandingSet &
+	FrontLandingSet ={fls} &
+	LeftLandingSet ={lls} &
+	RightLandingSet ={rls} &
+	extendedLLS : LeftLandingSetSTATES &
+	retractedLLS : LeftLandingSetSTATES &
+	extendedRLS : RightLandingSetSTATES &
+	retractedFLS : FrontLandingSetSTATES &
+	retractedRLS : RightLandingSetSTATES &
+	extendedFLS : FrontLandingSetSTATES &
+	extendedRLS /= retractedRLS &
+	extendedFLS /= retractedFLS &
+	extendedLLS /= retractedLLS &
+	LeftLandingSetSTATES ={extendedLLS, retractedLLS} &
+	FrontLandingSetSTATES ={retractedFLS, extendedFLS} &
+	RightLandingSetSTATES ={retractedRLS, extendedRLS}
+END

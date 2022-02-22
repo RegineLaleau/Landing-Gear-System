@@ -1,0 +1,90 @@
+REFINEMENT
+	LeftLandingSetL1
+REFINES
+	LeftLandingSet_Interface
+
+SEES
+	LeftLandingSet_CONT,
+	MechanicalSubSystem_CONT,
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	doorState,
+	dubState,
+	gearState,
+	hubState,
+	lbState,
+	llsState
+INVARIANT
+	doorState : Door --> DoorSTATES &
+	dubState : DownUplockBox --> DownUplockBoxSTATES &
+	gearState : Gear --> GearSTATES &
+	hubState : HighUplockBox --> HighUplockBoxSTATES &
+	lbState : LatchingBoxes --> LatchingBoxesSTATES
+INITIALISATION
+	doorState :: {door} -->DoorSTATES ||
+	dubState :: {dub} -->DownUplockBoxSTATES ||
+	gearState :: {gear} -->GearSTATES ||
+	hubState :: {hub} -->HighUplockBoxSTATES ||
+	lbState :: {lb} -->LatchingBoxesSTATES ||
+	llsState :: {lls} -->LeftLandingSetSTATES
+
+EVENTS
+	OpenLatchingBox =
+	SELECT
+		lbState(lb)=lbclosed
+	THEN
+		lbState(lb):=lbopened
+	END
+ ;
+	CloseLeftDoor =
+	SELECT
+		dubState(dub)=closedDBox &
+		doorState(door)=dopen
+	THEN
+		doorState(door):=dclose
+	END
+ ;
+	OpenHighUplockBox =
+	SELECT
+		doorState(door)=dopen &
+		hubState(hub)=closedHBox
+	THEN
+		hubState(hub):=openedHBox
+	END
+ ;
+	ExtendsLeftGear ref ExtendsLeftLandingSet=
+	SELECT
+		hubState(hub)=openedHBox &
+		gearState(gear)=gretracted &
+		llsState(lls)=retractedLLS
+	THEN
+		gearState(gear):=gextended ||
+		llsState(lls):=extendedLLS
+	END
+ ;
+	OpenLeftDoor =
+	SELECT
+		lbState(lb)=lbopened &
+		doorState(door)=dclose
+	THEN
+		doorState(door):=dopen
+	END
+ ;
+	CloseLatchingBox =
+	SELECT
+		doorState(door)=dclose &
+		lbState(lb)=lbopened
+	THEN
+		lbState(lb):=lbclosed
+	END
+ ;
+	CloseDownUplockBox =
+	SELECT
+		gearState(gear)=gextended &
+		dubState(dub)=openedDBox
+	THEN
+		dubState(dub):=closedDBox
+	END
+END
+

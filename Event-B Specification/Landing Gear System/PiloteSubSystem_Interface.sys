@@ -1,0 +1,40 @@
+SYSTEM
+	PiloteSubSystem_Interface
+SEES
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	pssState
+INVARIANT
+	pssState : PiloteSubSystem --> PiloteSubSystemStates
+INITIALISATION
+	pssState :: {pss} -->PiloteSubSystemStates
+
+EVENTS
+	commandsDigitalSSForRetraction =
+	SELECT
+		pssState(pss)=orderedForRetractionPiloteSS
+	THEN
+ skip 	END
+ ;
+	commandsPiloteSSForExtension =
+	SELECT
+		pssState(pss)=orderedForRetractionPiloteSS
+	THEN
+		pssState(pss):=orderedForExtensionPiloteSS
+	END
+ ;
+	commandsDigitalSSForExtension =
+	SELECT
+		pssState(pss)=orderedForExtensionPiloteSS
+	THEN
+ skip 	END
+ ;
+	commandsPiloteSSForRetraction =
+	SELECT
+		pssState(pss)=orderedForExtensionPiloteSS
+	THEN
+		pssState(pss):=orderedForRetractionPiloteSS
+	END
+END
+

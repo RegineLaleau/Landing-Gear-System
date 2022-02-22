@@ -1,0 +1,41 @@
+SYSTEM
+	RightLandingSet_Interface
+SEES
+	MechanicalSubSystem_CONT,
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	rlsState
+INVARIANT
+	rlsState : RightLandingSet --> RightLandingSetSTATES
+INITIALISATION
+	rlsState :: {rls} -->RightLandingSetSTATES
+
+EVENTS
+	ExtendsRightLandingSet =
+	SELECT
+		rlsState(rls)=retractedRLS
+	THEN
+		rlsState(rls):=extendedRLS
+	END
+ ;
+	ExtendsLGSS =
+	SELECT
+		rlsState(rls)=extendedRLS
+	THEN
+ skip 	END
+ ;
+	RetractsLGSS =
+	SELECT
+		rlsState(rls)=retractedRLS
+	THEN
+ skip 	END
+ ;
+	RetractsRightLandingSet =
+	SELECT
+		rlsState(rls)=extendedRLS
+	THEN
+		rlsState(rls):=retractedRLS
+	END
+END
+

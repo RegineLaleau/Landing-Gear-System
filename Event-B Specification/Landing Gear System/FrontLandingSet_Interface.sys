@@ -1,0 +1,41 @@
+SYSTEM
+	FrontLandingSet_Interface
+SEES
+	MechanicalSubSystem_CONT,
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	flsState
+INVARIANT
+	flsState : FrontLandingSet --> FrontLandingSetSTATES
+INITIALISATION
+	flsState :: {fls} -->FrontLandingSetSTATES
+
+EVENTS
+	RetractsFrontLandingSet =
+	SELECT
+		flsState(fls)=extendedFLS
+	THEN
+		flsState(fls):=retractedFLS
+	END
+ ;
+	ExtendsLG =
+	SELECT
+		flsState(fls)=extendedFLS
+	THEN
+ skip 	END
+ ;
+	RetractsLG =
+	SELECT
+		flsState(fls)=retractedFLS
+	THEN
+ skip 	END
+ ;
+	ExtendsFrontLandingSet =
+	SELECT
+		flsState(fls)=retractedFLS
+	THEN
+		flsState(fls):=extendedFLS
+	END
+END
+

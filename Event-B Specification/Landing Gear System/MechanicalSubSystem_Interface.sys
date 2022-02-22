@@ -1,0 +1,40 @@
+SYSTEM
+	MechanicalSubSystem_Interface
+SEES
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	mssState
+INVARIANT
+	mssState : MechanicalSubSystem --> MechanicalSubSystemStates
+INITIALISATION
+	mssState :: {mss} -->MechanicalSubSystemStates
+
+EVENTS
+	commandsMechanicalSSForRetraction =
+	SELECT
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+		mssState(mss):=orderedForRetractionMechanicalSS
+	END
+ ;
+	ExtendsLG =
+	SELECT
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+ skip 	END
+ ;
+	commandsMechanicalSSForExtension =
+	SELECT
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+		mssState(mss):=orderedForExtensionMechanicalSS
+	END
+ ;
+	RetractsLG =
+	SELECT
+		mssState(mss)=orderedForRetractionMechanicalSS
+	THEN
+ skip 	END
+END
+

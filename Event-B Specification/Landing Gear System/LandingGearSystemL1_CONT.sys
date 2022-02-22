@@ -1,0 +1,47 @@
+SYSTEM
+	LandingGearSystemL1_CONT
+SETS
+	DigitalSubSystem;
+	MechanicalSubSystem;
+	PiloteSubSystem;
+	DigitalSubSystemStates;
+	PiloteSubSystemStates;
+	MechanicalSubSystemStates;
+	PILOT
+CONSTANTS
+	mss,
+	dss,
+	pss,
+	pilot,
+	orderedForExtensionMechanicalSS,
+	orderedForRetractionPiloteSS,
+	orderedForExtensionDigitalSS,
+	orderedForExtensionPiloteSS,
+	orderedForRetractionDigitalSS,
+	orderedForRetractionMechanicalSS,
+	commandsExtension,
+	commandsRetraction
+PROPERTIES
+	mss : MechanicalSubSystem &
+	dss : DigitalSubSystem &
+	pss : PiloteSubSystem &
+	pilot : PILOT &
+	PILOT={pilot} & 
+	PiloteSubSystem ={pss} &
+	MechanicalSubSystem ={mss} &
+	DigitalSubSystem ={dss} &
+	orderedForRetractionPiloteSS : PiloteSubSystemStates &
+	orderedForExtensionPiloteSS : PiloteSubSystemStates &
+	orderedForExtensionMechanicalSS : MechanicalSubSystemStates &
+	orderedForRetractionDigitalSS : DigitalSubSystemStates &
+	orderedForExtensionDigitalSS : DigitalSubSystemStates &
+	orderedForRetractionMechanicalSS : MechanicalSubSystemStates &
+	orderedForExtensionPiloteSS /= orderedForRetractionPiloteSS &
+	orderedForExtensionDigitalSS /= orderedForRetractionDigitalSS &
+	orderedForRetractionMechanicalSS /= orderedForExtensionMechanicalSS &
+	DigitalSubSystemStates ={orderedForRetractionDigitalSS, orderedForExtensionDigitalSS} &
+	PiloteSubSystemStates ={orderedForRetractionPiloteSS, orderedForExtensionPiloteSS} &
+	MechanicalSubSystemStates ={orderedForExtensionMechanicalSS, orderedForRetractionMechanicalSS} &
+	commandsExtension : {pilot} >-> {pss} &
+	commandsRetraction : {pilot} >-> {pss}
+END

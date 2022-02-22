@@ -1,0 +1,27 @@
+SYSTEM
+	LandingGearSystemL0
+SEES
+	LandingGearSystemL0_CONT
+VARIABLES
+	lgState
+INVARIANT
+	lgState : LandingGearSystem --> LandingGearSystemStates
+INITIALISATION
+	lgState :: {lg} -->LandingGearSystemStates
+
+EVENTS
+	RetractsLGS =
+	SELECT
+		lgState(lg)=Extended
+	THEN
+		lgState(lg):=Retracted
+	END
+ ;
+	ExtendsLGS =
+	SELECT
+		lgState(lg)=Retracted
+	THEN
+		lgState(lg):=Extended
+	END
+END
+
