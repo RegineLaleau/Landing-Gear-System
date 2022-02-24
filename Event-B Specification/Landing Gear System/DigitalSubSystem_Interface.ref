@@ -1,0 +1,38 @@
+SYSTEM
+	DigitalSubSystem_Interface
+SEES
+	LandingGearSystemL1_CONT,
+	LandingGearSystemL0_CONT
+VARIABLES
+	dssState
+INVARIANT
+	dssState : DigitalSubSystem --> DigitalSubSystemStates
+INITIALISATION
+	dssState :: {dss} -->DigitalSubSystemStates
+
+EVENTS
+	commandsDigitalSSForRetraction =
+	SELECT
+		dssState(dss)=orderedForExtensionDigitalSS
+	THEN
+		dssState(dss):=orderedForRetractionDigitalSS
+	END ;
+	commandsDigitalSSForExtension =
+	SELECT
+		dssState(dss)=orderedForRetractionDigitalSS
+	THEN
+		dssState(dss):=orderedForExtensionDigitalSS
+	END ;
+	commandsMechanicalSSForRetraction =
+	SELECT
+		dssState(dss)=orderedForRetractionDigitalSS
+	THEN
+ skip 	END
+ ;
+	commandsMechanicalSSForExtension =
+	SELECT
+		dssState(dss)=orderedForExtensionDigitalSS
+	THEN
+ skip 	END
+END
+
