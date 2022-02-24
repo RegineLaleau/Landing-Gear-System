@@ -30,13 +30,13 @@ EVENTS
 	THEN
  skip 	END
  ;
-	ExtendsLG =
+	ExtendsLGSS =
 	SELECT
 		mssState(mss)=orderedForExtensionMechanicalSS
 	THEN
  skip 	END
  ;
-	RetractsLG =
+	RetractsLGSS =
 	SELECT
 		mssState(mss)=orderedForRetractionMechanicalSS
 	THEN

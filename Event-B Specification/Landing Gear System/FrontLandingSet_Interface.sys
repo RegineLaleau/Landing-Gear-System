@@ -19,13 +19,13 @@ EVENTS
 		flsState(fls):=retractedFLS
 	END
  ;
-	ExtendsLG =
+	ExtendsLGSS =
 	SELECT
 		flsState(fls)=extendedFLS
 	THEN
  skip 	END
  ;
-	RetractsLG =
+	RetractsLGSS =
 	SELECT
 		flsState(fls)=retractedFLS
 	THEN

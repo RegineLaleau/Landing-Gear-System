@@ -18,13 +18,13 @@ EVENTS
 		llsState(lls):=extendedLLS
 	END
  ;
-	ExtendsLG =
+	ExtendsLGSS =
 	SELECT
 		llsState(lls)=extendedLLS
 	THEN
  skip 	END
  ;
-	RetractsLG =
+	RetractsLGSS =
 	SELECT
 		llsState(lls)=retractedLLS
 	THEN
