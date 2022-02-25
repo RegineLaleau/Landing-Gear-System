@@ -19,13 +19,13 @@ EVENTS
 		rlsState(rls):=extendedRLS
 	END
  ;
-	ExtendsLGSS =
+	commandsMechanicalSSForExtension_R =
 	SELECT
 		rlsState(rls)=extendedRLS
 	THEN
  skip 	END
  ;
-	RetractsLGSS =
+	commandsMechanicalSSForRetraction_R =
 	SELECT
 		rlsState(rls)=retractedRLS
 	THEN

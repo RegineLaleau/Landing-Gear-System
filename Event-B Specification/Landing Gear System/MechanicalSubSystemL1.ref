@@ -26,7 +26,7 @@ EVENTS
 	ExtendsRightLandingSet =
 	SELECT
 		rlsState(rls)=retractedRLS &
-		mssState(mss)=orderedForExtensionMechanicalSS
+		mssState(mss)=orderedForRetractionMechanicalSS
 	THEN
 		rlsState(rls):=extendedRLS
 	END
@@ -34,7 +34,7 @@ EVENTS
 	RetractsFrontLandingSet =
 	SELECT
 		flsState(fls)=extendedFLS &
-		mssState(mss)=orderedForRetractionMechanicalSS
+		mssState(mss)=orderedForExtensionMechanicalSS
 	THEN
 		flsState(fls):=retractedFLS
 	END
@@ -42,33 +42,33 @@ EVENTS
 	ExtendsLeftLandingSet =
 	SELECT
 		llsState(lls)=retractedLLS &
-		mssState(mss)=orderedForExtensionMechanicalSS
+		mssState(mss)=orderedForRetractionMechanicalSS
 	THEN
 		llsState(lls):=extendedLLS
 	END
  ;
-	ExtendsLGSS ref ExtendsLG=
+	commandsMechanicalSSForExtension_R ref commandsMechanicalSSForExtension=
 	SELECT
 		rlsState(rls)=extendedRLS &
 		flsState(fls)=extendedFLS &
 		llsState(lls)=extendedLLS &
-		mssState(mss)=orderedForExtensionMechanicalSS
+		mssState(mss)=orderedForRetractionMechanicalSS
 	THEN
- skip 	END
- ;
-	RetractsLGSS ref RetractsLG=
+		mssState(mss):=orderedForExtensionMechanicalSS 
+	END ;
+	commandsMechanicalSSForRetraction_R ref commandsMechanicalSSForRetraction=
 	SELECT
 		rlsState(rls)=retractedRLS &
 		flsState(fls)=retractedFLS &
 		llsState(lls)=retractedLLS &
-		mssState(mss)=orderedForRetractionMechanicalSS
+		mssState(mss)=orderedForExtensionMechanicalSS
 	THEN
- skip 	END
- ;
+		mssState(mss):=orderedForRetractionMechanicalSS
+	END ;
 	ExtendsFrontLandingSet =
 	SELECT
 		flsState(fls)=retractedFLS &
-		mssState(mss)=orderedForExtensionMechanicalSS
+		mssState(mss)=orderedForRetractionMechanicalSS
 	THEN
 		flsState(fls):=extendedFLS
 	END
@@ -76,7 +76,7 @@ EVENTS
 	RetractsRightLandingSet =
 	SELECT
 		rlsState(rls)=extendedRLS &
-		mssState(mss)=orderedForRetractionMechanicalSS
+		mssState(mss)=orderedForExtensionMechanicalSS
 	THEN
 		rlsState(rls):=retractedRLS
 	END
@@ -84,7 +84,7 @@ EVENTS
 	RetractsLeftLandingSet =
 	SELECT
 		llsState(lls)=extendedLLS &
-		mssState(mss)=orderedForRetractionMechanicalSS
+		mssState(mss)=orderedForExtensionMechanicalSS
 	THEN
 		llsState(lls):=retractedLLS
 	END

@@ -30,18 +30,18 @@ EVENTS
 	THEN
  skip 	END
  ;
-	ExtendsLGSS =
-	SELECT
-		mssState(mss)=orderedForExtensionMechanicalSS
-	THEN
- skip 	END
- ;
-	RetractsLGSS =
+	commandsMechanicalSSForExtension_R =
 	SELECT
 		mssState(mss)=orderedForRetractionMechanicalSS
 	THEN
- skip 	END
- ;
+		mssState(mss):=orderedForExtensionMechanicalSS 
+	END ;
+	commandsMechanicalSSForRetraction_R =
+	SELECT
+		mssState(mss)=orderedForExtensionMechanicalSS
+	THEN
+		mssState(mss):=orderedForRetractionMechanicalSS
+	END ;
 	ExtendsFrontLandingSet =
 	SELECT
 		mssState(mss)=orderedForExtensionMechanicalSS
