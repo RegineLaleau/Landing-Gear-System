@@ -24,7 +24,6 @@ INITIALISATION
 EVENTS
 	commandsMechanicalSSForRetraction =
 	SELECT
-		lgState(lg)=Extended &
 		dssState(dss)=orderedForRetractionDigitalSS &
 		mssState(mss)=orderedForExtensionMechanicalSS
 	THEN
@@ -41,7 +40,6 @@ EVENTS
  ;
 	commandsMechanicalSSForExtension =
 	SELECT
-		lgState(lg)=Retracted &
 		dssState(dss)=orderedForExtensionDigitalSS &
 		mssState(mss)=orderedForRetractionMechanicalSS
 	THEN
@@ -58,7 +56,6 @@ EVENTS
  ;
 	commandsDigitalSSForRetraction =
 	SELECT
-		lgState(lg)=Extended &
 		pssState(pss)=orderedForRetractionPiloteSS &
 		dssState(dss)=orderedForExtensionDigitalSS
 	THEN
@@ -75,7 +72,6 @@ EVENTS
  ;
 	commandsDigitalSSForExtension =
 	SELECT
-		lgState(lg)=Retracted &
 		pssState(pss)=orderedForExtensionPiloteSS &
 		dssState(dss)=orderedForRetractionDigitalSS
 	THEN

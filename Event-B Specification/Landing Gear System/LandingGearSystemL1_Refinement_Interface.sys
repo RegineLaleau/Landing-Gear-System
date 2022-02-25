@@ -11,12 +11,7 @@ INITIALISATION
 	lgState :: {lg} -->LandingGearSystemStates
 
 EVENTS
-	commandsMechanicalSSForRetraction =
-	SELECT
-		lgState(lg)=Extended
-	THEN
- skip 	END
- ;
+	
 	ExtendsLG =
 	SELECT
 		lgState(lg)=Retracted
@@ -24,12 +19,7 @@ EVENTS
 		lgState(lg):=Extended
 	END
  ;
-	commandsMechanicalSSForExtension =
-	SELECT
-		lgState(lg)=Retracted
-	THEN
- skip 	END
- ;
+	
 	RetractsLG =
 	SELECT
 		lgState(lg)=Extended
@@ -37,19 +27,7 @@ EVENTS
 		lgState(lg):=Retracted
 	END
  ;
-	commandsDigitalSSForRetraction =
-	SELECT
-		lgState(lg)=Extended
-	THEN
- skip 	END
- ;
 	commandsPiloteSSForExtension =
-	SELECT
-		lgState(lg)=Retracted
-	THEN
- skip 	END
- ;
-	commandsDigitalSSForExtension =
 	SELECT
 		lgState(lg)=Retracted
 	THEN
